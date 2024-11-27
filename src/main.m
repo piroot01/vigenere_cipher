@@ -10,9 +10,9 @@ sonnets = prep_sonnets();
 
 [alphabet, letter_counts] = alphabet_histogram(sonnets);
 
-input_text = strrep(upper(fileread('test03.txt')), newline, '');
+input_text = strrep(upper(fileread('test02.txt')), newline, '');
 
-input_text_encrypted = encrypt(input_text, 'FUCKYOU', alphabet);
+input_text_encrypted = encrypt(input_text, 'HELL', alphabet);
 
 % load the encrypted message
 % input_text_encrypted = fileread('data/test02_encrypted.txt');
@@ -56,9 +56,9 @@ for key_size = key_sizes
     keys{idx, 2} = fitness_value;
     idx = idx + 1;
 
-    % if fitness_value > treshold
-    %     break;
-    % end
+    if fitness_value > treshold
+        break;
+    end
 end
 
 toc;
