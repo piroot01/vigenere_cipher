@@ -1,6 +1,6 @@
 function divisors_list = list_ngram_distance_divisors(input_text, ngrams)
     % this is possible issue
-    preallocated_size = 1000;
+    preallocated_size = 10000;
 
     ngrams_count = numel(ngrams);
     founded_distances = zeros([1, preallocated_size]);

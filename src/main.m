@@ -1,5 +1,5 @@
 %% main
-clc;
+clc; clearvars;
 
 % add neccessary path
 addpath('src');
@@ -10,8 +10,12 @@ sonnets = prep_sonnets();
 
 [alphabet, letter_counts] = alphabet_histogram(sonnets);
 
+input_text = strrep(upper(fileread('test03.txt')), newline, '');
+
+input_text_encrypted = encrypt(input_text, 'FUCKYOU', alphabet);
+
 % load the encrypted message
-input_text_encrypted = fileread('data/test02_encrypted.txt');
+% input_text_encrypted = fileread('data/test02_encrypted.txt');
 
 tic;
 
@@ -23,11 +27,11 @@ divisors_list = list_ngram_distance_divisors(input_text_encrypted, ngrams4);
 % key sizes from most relevant to least relevant
 key_sizes = determine_key_sizes(divisors_list);
 
-max_key_size = 20;
+max_key_size = 50;
 
 % if the key decrypts to text with fitness greater then treshold we
 % succeeded
-treshold = 0.95;
+treshold = 0.96;
 
 % preallocate keys array
 num_valid_keys = sum(key_sizes > 1 & key_sizes <= max_key_size);
@@ -52,9 +56,9 @@ for key_size = key_sizes
     keys{idx, 2} = fitness_value;
     idx = idx + 1;
 
-    if fitness_value > treshold
-        break;
-    end
+    % if fitness_value > treshold
+    %     break;
+    % end
 end
 
 toc;
@@ -80,8 +84,47 @@ sonnets = prep_sonnets();
 
 input_text = strrep(upper(fileread('test02.txt')), newline, '');
 
-input_text_encrypted = encrypt(input_text, 'HELLONIGGAKUN', alphabet);
+input_text_encrypted = encrypt(input_text, 'FUCKYOU', alphabet);
 
 fid = fopen('data/test02_encrypted.txt', 'wt');
 fprintf(fid, input_text_encrypted);
 fclose(fid);
+
+%% full auto
+clc; clearvars;
+
+file_content = fileread('words_en.txt');
+
+keywords = splitlines(file_content);
+
+sonnets = prep_sonnets();
+
+[alphabet, letter_counts] = alphabet_histogram(sonnets);
+
+input_text = strrep(upper(fileread('test03.txt')), newline, '');
+
+ciphered_text = encrypt(input_text, 'FUCKYOU', alphabet);
+
+[key_, text] = crackVignereCipher(ciphered_text);
+
+fprintf("The decrypted key: %s\n", key_);
+disp(text);
+
+
+% for k = 1:numel(keywords)
+%     key = char(upper(keywords(k)));
+% 
+%     if numel(key) < 3
+%         continue;
+%     end
+% 
+%     ciphered_text = encrypt(input_text, key, alphabet);
+% 
+%     [key_, text] = crackVignereCipher(ciphered_text);
+% 
+%     if ~strcmp(key, key_)
+%         fprintf("The orig key: %s\n", key);
+%         fprintf("The decrypted key: %s\n", key_);
+%         disp(text);
+%     end
+% end

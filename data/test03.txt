@@ -1,0 +1,8 @@
+The Kasiski examination involves searching for repeated sequences of three or more characters
+in the ciphertext. These sequences are likely to result from the same plaintext letters being
+encrypted using the same part of the keyword. By calculating the distance between these repeated
+sequences, it is possible to determine the likely length of the keyword. Afterward, we can separate
+the ciphertext into sections with the same length as the guessed key length and compute the
+histogram of each character in each position in each section. The obtained frequency distribution
+can further be compared to the frequency table of the English language to determine the possible
+shift in the distribution.
