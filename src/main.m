@@ -10,9 +10,9 @@ sonnets = prep_sonnets();
 
 [alphabet, letter_counts] = alphabet_histogram(sonnets);
 
-input_text = strrep(upper(fileread('test02.txt')), newline, '');
+input_text = strrep(upper(fileread('test04.txt')), newline, '');
 
-input_text_encrypted = encrypt(input_text, 'HELL', alphabet);
+input_text_encrypted = encrypt(input_text, 'NIGGA', alphabet);
 
 % load the encrypted message
 % input_text_encrypted = fileread('data/test02_encrypted.txt');
@@ -27,7 +27,7 @@ divisors_list = list_ngram_distance_divisors(input_text_encrypted, ngrams4);
 % key sizes from most relevant to least relevant
 key_sizes = determine_key_sizes(divisors_list);
 
-max_key_size = 50;
+max_key_size = 10;
 
 % if the key decrypts to text with fitness greater then treshold we
 % succeeded
@@ -56,9 +56,9 @@ for key_size = key_sizes
     keys{idx, 2} = fitness_value;
     idx = idx + 1;
 
-    if fitness_value > treshold
-        break;
-    end
+    % if fitness_value > treshold
+    %     break;
+    % end
 end
 
 toc;
