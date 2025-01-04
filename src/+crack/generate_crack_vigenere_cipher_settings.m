@@ -1,7 +1,5 @@
-function [decrypted_key, decrypted_text] = crack_vigenere_cipher(text_to_crack, varargin)
-    % description will be placed here
-
-    % parse the input parameters
+function settings = generate_crack_vigenere_cipher_settings(text_to_crack, varargin)
+    % parse the input parameters or set default values
     parser = inputParser;
     addRequired(parser, 'text_to_crack');
     addParameter(parser, 'text_for_frequency_analysis_path', 'data/sonnets.txt');
@@ -32,8 +30,4 @@ function [decrypted_key, decrypted_text] = crack_vigenere_cipher(text_to_crack, 
     settings.max_tested_key_count = parser.Results.max_tested_key_count;
     settings.max_key_count = parser.Results.max_key_count;
     settings.examine_length = parser.Results.examine_length;
-
-    cracker = crack.crack_vigenere_cipher(settings);
-
-    [decrypted_key, decrypted_text] = cracker.crack();
 end

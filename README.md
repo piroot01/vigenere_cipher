@@ -4,26 +4,9 @@ A MATLAB-based implementation of Vigenère cipher cracking using frequency analy
 and Kasiski examination. Includes optional dictionary-based refinement for
 improved accuracy.
 
-## Description
-
-This tool implements a statistical approach to breaking Vigenère ciphers through:
-- Frequency analysis using reference text
-- Kasiski examination for key length detection
-- Optional dictionary-based validation (for English text)
-
 ## Basic Usage
 
-```matlab
-ciphered_text = crack.prepare_text("misc/romeoChorusCiphered.txt");
-
-[decrypted_key, ~] = crack_vigenere_cipher(ciphered_text, ...
-                    'use_dictionary_attack', false, ...
-                    'min_key_length', 3, ...
-                    'max_key_length', 64, ...
-                    'fitness_threshold', 0.92, ...
-                    'fitness_threshold_for_substitution_top_value', 0.96, ...
-                    'fitness_threshold_for_substitution_bottom_value', 0.75);
-```
+See the ```example.m```.
 
 ## Configuration Parameters
 
@@ -42,17 +25,10 @@ ciphered_text = crack.prepare_text("misc/romeoChorusCiphered.txt");
 | examine_length | integer | 128 | Text length to examine during dictionary attack |
 | max_key_count | integer | 1024 | Maximum number of keys to generate in dictionary attack |
 
-## Performance Notes
-
-- Dictionary attack mode significantly increases computation time
-- Longer examine_length values exponentially increase processing time
-- Consider system memory when setting max_key_count for dictionary attack
-
 ## Limitations
 
-- Best results with English language texts
-- Dictionary attack requires significant computational resources
-- Accuracy depends on reference text quality and similarity to original text
+- The dictionary attack works only on English texts and 
+- When using only the frequency analysis the accuracy depends on reference text similarity to original text
 - Encrypted text length must be significantly longer than the key length for reliable frequency analysis
   - Rule of thumb: text length should be at least 20-25 times the key length
   - Shorter texts may yield unreliable results or fail to crack
