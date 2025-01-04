@@ -12,7 +12,8 @@ sonnets = prep_sonnets();
 
 input_text = strrep(upper(fileread('test04.txt')), newline, '');
 
-input_text_encrypted = encrypt(input_text, 'NIGGA', alphabet);
+
+input_text_encrypted = fileread('romeoChorusCiphered.txt');
 
 % load the encrypted message
 % input_text_encrypted = fileread('data/test02_encrypted.txt');
@@ -27,7 +28,7 @@ divisors_list = list_ngram_distance_divisors(input_text_encrypted, ngrams4);
 % key sizes from most relevant to least relevant
 key_sizes = determine_key_sizes(divisors_list);
 
-max_key_size = 10;
+max_key_size = 20;
 
 % if the key decrypts to text with fitness greater then treshold we
 % succeeded
@@ -93,9 +94,13 @@ fclose(fid);
 %% full auto
 clc; clearvars;
 
-file_content = fileread('words_en.txt');
+addpath('src');
+addpath('data');
+addpath('misc');
 
-keywords = splitlines(file_content);
+%file_content = fileread('words_en.txt');
+
+%keywords = splitlines(file_content);
 
 sonnets = prep_sonnets();
 
@@ -103,28 +108,10 @@ sonnets = prep_sonnets();
 
 input_text = strrep(upper(fileread('test03.txt')), newline, '');
 
-ciphered_text = encrypt(input_text, 'FUCKYOU', alphabet);
+%ciphered_text = encrypt(input_text, 'FUCKYOU', alphabet);
+ciphered_text = fileread('romeoChorusCiphered.txt');
 
 [key_, text] = crackVignereCipher(ciphered_text);
 
 fprintf("The decrypted key: %s\n", key_);
 disp(text);
-
-
-% for k = 1:numel(keywords)
-%     key = char(upper(keywords(k)));
-% 
-%     if numel(key) < 3
-%         continue;
-%     end
-% 
-%     ciphered_text = encrypt(input_text, key, alphabet);
-% 
-%     [key_, text] = crackVignereCipher(ciphered_text);
-% 
-%     if ~strcmp(key, key_)
-%         fprintf("The orig key: %s\n", key);
-%         fprintf("The decrypted key: %s\n", key_);
-%         disp(text);
-%     end
-% end
